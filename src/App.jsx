@@ -1,12 +1,14 @@
-import './App.css'
-import HomePage from './views/HomePage'
+import './App.css';
+import HomePage from './views/HomePage';
+import { CssBaseline } from '@mui/material';
 
 function App() {
   return (
     <>
-		 < HomePage />
-	 </>
-  )
+      <CssBaseline />
+      <HomePage />
+    </>
+  );
 }
 
-export default App
+export default App;

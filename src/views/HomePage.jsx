@@ -1,46 +1,38 @@
-import {useState, useEffect, React} from 'react'
-import { Typography, Box } from '@mui/material';
-import MainCard from '../components/MainCard'
+import useVideogames from '../hooks/useVideogames';
+
+import Loading from '../components/Loading';
+import Title from '../components/Title';
+import Footer from '../components/Footer';
+import GamesContainer from '../components/GamesContainer';
 
 export default function HomePage() {
-	const [gamesData, setGamesData] = useState([])
+  const { gamesData, getVideogames, isLoading } = useVideogames();
 
-	useEffect(() => {
-		getVideogames()
-	}, [])
-	
-
-	const getVideogames = async() => {
-		try{
-			const response = await fetch('https://videogamesapi.herokuapp.com/api/games', {mode:'no-cors'})
-			const data = await response.json();
-			console.log('Games data from API...', data)
-		}catch(err){
-			console.log(err)
-		}
-	}
   return (
-	 <div style={{display:'flex', flexDirection:'column', width:'100%'}}>
-		 <Typography 
-		 	variant='h4' 
-			align='center'
-			sx={{
-				fontFamily:'Bungee Outline',
-				fontWeight:'bold',
-				color:'yellow',
-				backgroundColor:'blue',
-				width:'35%',
-				borderRadius:'8px'
-			}}
-		 >
-			Platzi Retro Arcade
-		 </Typography>
-		 <Box sx={{display:'flex'}}>
-			<MainCard />
-			<MainCard />
-			<MainCard />
-			<MainCard />
-		 </Box>
-	 </div>
-  )
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        width: '100%',
+        minHeight: '100vh',
+        backgroundColor: '#161616',
+        padding: '40px 20px 0',
+      }}
+    >
+      <Title />
+
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <>
+          <GamesContainer gamesData={gamesData.results} />
+          <Footer
+            previous={gamesData.previous}
+            next={gamesData.next}
+            updateGames={getVideogames}
+          />
+        </>
+      )}
+    </div>
+  );
 }
