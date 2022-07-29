@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 
 const BASE_API = 'https://api.rawg.io/api/games';
+const API_KEY = 'import.meta.env.API_KEY';
 
 const useVideogames = () => {
+  console.log(API_KEY);
   const [gamesData, setGamesData] = useState({
     previous: null,
     next: '',
