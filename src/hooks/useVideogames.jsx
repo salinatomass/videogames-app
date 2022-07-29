@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
 
 const BASE_API = 'https://api.rawg.io/api/games';
-const API_KEY = 'import.meta.env.API_KEY';
+const API_KEY = import.meta.env.VITE_API_KEY;
 
 const useVideogames = () => {
-  console.log(API_KEY);
   const [gamesData, setGamesData] = useState({
     previous: null,
     next: '',
@@ -13,7 +12,7 @@ const useVideogames = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    getVideogames(`${BASE_API}?key=8b14a42837b34668b47e1607e11a0da9&page=1`);
+    getVideogames(`${BASE_API}?key=${API_KEY}&page=1`);
   }, []);
 
   const getVideogames = async url => {
